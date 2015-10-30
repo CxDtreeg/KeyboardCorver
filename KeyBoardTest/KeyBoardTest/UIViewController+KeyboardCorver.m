@@ -59,9 +59,11 @@ static void * objectViewKey = (void *)@"objectViewKey";
     UIView * ojView = [self getObjectView];
     ojView = nil;
     for (UIView * tempView in view.subviews) {
-        if ([tempView isFirstResponder] && [tempView isKindOfClass:[UITextField class]]) {//要进行类型判断
-            [self setObjectView:tempView];
-        }
+        if ([tempView isFirstResponder] &&
+            ([tempView isKindOfClass:[UITextField class]] ||
+             [tempView isKindOfClass:[UITextView class]])) {//要进行类型判断
+                [self setObjectView:tempView];
+            }
         if (tempView.subviews.count != 0) {
             [self findFirstResponse:tempView];
         }
@@ -84,7 +86,8 @@ static void * objectViewKey = (void *)@"objectViewKey";
         CGPoint point = [tempView convertPoint:tempView.frame.origin toView:self.view];//计算响应者到和屏幕的绝对位置
         point = CGPointMake(point.x/2.0, point.y/2.0);//将像素单位转为点单位
         CGFloat keyboardY = APPWINDOWHEIGHT - keyboardHeight;
-        if (point.y > keyboardY) {
+        
+        if (point.y+tempView.frame.size.height > keyboardY) {
             CGFloat offsetY = keyboardY-point.y-tempView.frame.size.height;
             if (duration > 0) {
                 [UIView animateWithDuration:duration delay:0 options:curve<<16 animations:^{
