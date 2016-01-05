@@ -10,11 +10,8 @@
 
 @implementation UIViewController (KeyboardCorver)
 
-@dynamic keyboardHideTapGesture;
-@dynamic objectView;
-
-static void * keyboardHideTapGestureKey = (void *)@"keyboardHideTapGesture";
-static void * objectViewKey = (void *)@"objectViewKey";
+static void * keyboardHideTapGestureKey = (void *)@"keyboardHideTapGesture";//键盘点击隐藏手势
+static void * objectViewKey = (void *)@"objectView";//目标视图
 
 #pragma mark - 设置键盘隐藏单击手势 setter getter
 - (void)setKeyboardHideTapGesture:(UITapGestureRecognizer *)keyboardHideTapGesture{
