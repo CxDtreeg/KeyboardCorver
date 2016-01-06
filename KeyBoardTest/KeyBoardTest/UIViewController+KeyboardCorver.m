@@ -8,10 +8,11 @@
 
 #import "UIViewController+KeyboardCorver.h"
 
-@implementation UIViewController (KeyboardCorver)
-
 static void * keyboardHideTapGestureKey = (void *)@"keyboardHideTapGesture";//键盘点击隐藏手势
 static void * objectViewKey = (void *)@"objectView";//目标视图
+
+
+@implementation UIViewController (KeyboardCorver)
 
 #pragma mark - 设置键盘隐藏单击手势 setter getter
 - (void)setKeyboardHideTapGesture:(UITapGestureRecognizer *)keyboardHideTapGesture{
@@ -69,7 +70,7 @@ static void * objectViewKey = (void *)@"objectView";//目标视图
 
 #pragma mark - 键盘通知接收处理
 - (void)keyboardNotify:(NSNotification *)notify{
-    
+
     NSValue * frameNum = [notify.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect rect = frameNum.CGRectValue;
     CGFloat keyboardHeight = rect.size.height;//键盘高度
@@ -80,14 +81,18 @@ static void * objectViewKey = (void *)@"objectView";//目标视图
     if ([notify.name isEqualToString:UIKeyboardWillShowNotification]) {//键盘显示
         [self findFirstResponse:self.view];
         UIView * tempView = [self getObjectView];
-        CGPoint point = [tempView convertPoint:tempView.frame.origin toView:self.view];//计算响应者到和屏幕的绝对位置
-        point = CGPointMake(point.x/2.0, point.y/2.0);//将像素单位转为点单位
+        CGPoint point = [tempView convertPoint:CGPointMake(0, 0) toView:[UIApplication sharedApplication].keyWindow];//计算响应者到和屏幕的绝对位置
         CGFloat keyboardY = APPWINDOWHEIGHT - keyboardHeight;
-        
-        if (point.y+tempView.frame.size.height > keyboardY) {
-            CGFloat offsetY = keyboardY-point.y-tempView.frame.size.height;
+        CGFloat tempHeight = point.y + tempView.frame.size.height;
+        if (tempHeight > keyboardY) {
+            CGFloat offsetY;
+            if (APPWINDOWHEIGHT-tempHeight < 0) {//判断是否超出了屏幕,超出屏幕做偏移纠正
+                offsetY = keyboardY - tempHeight + (tempHeight-APPWINDOWHEIGHT);
+            }else{
+                offsetY = keyboardY - tempHeight;
+            }
             if (duration > 0) {
-                [UIView animateWithDuration:duration delay:0 options:curve<<16 animations:^{
+                [UIView animateWithDuration:duration delay:0 options:curve animations:^{
                     self.view.transform = CGAffineTransformMakeTranslation(0, offsetY);
                 } completion:^(BOOL finished) {
                     
@@ -100,7 +105,7 @@ static void * objectViewKey = (void *)@"objectView";//目标视图
         
     }else if ([notify.name isEqualToString:UIKeyboardWillHideNotification]){//键盘隐藏
         if (duration > 0) {
-            [UIView animateWithDuration:duration delay:0 options:curve<<16 animations:^{
+            [UIView animateWithDuration:duration delay:0 options:curve animations:^{
                 self.view.transform = CGAffineTransformIdentity;
             } completion:^(BOOL finished) {
                 

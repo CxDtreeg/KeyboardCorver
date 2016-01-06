@@ -22,17 +22,16 @@
     [super viewDidLoad];
     
     _scrollView = [[UIScrollView alloc] init];
-    _scrollView.frame = CGRectMake(0, 100, APPWINDOWWIDTH, APPWINDOWHEIGHT-100);
+    _scrollView.frame = CGRectMake(0, 0, APPWINDOWWIDTH, APPWINDOWHEIGHT);
     _scrollView.contentSize = CGSizeMake(APPWINDOWWIDTH, 1000);
     _scrollView.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:_scrollView];
     
     UITextField * textField = [[UITextField alloc] initWithFrame:CGRectMake(8,600 , APPWINDOWWIDTH-16, 40)];
     textField.backgroundColor = [UIColor grayColor];
-    [self addNotification];
-    
     [_scrollView addSubview:textField];
     
+    [self addNotification];
 }
 
 - (void)dealloc
