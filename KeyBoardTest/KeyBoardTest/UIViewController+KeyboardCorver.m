@@ -14,12 +14,15 @@ static void * objectViewKey = (void *)@"objectView";//目标视图
 
 @implementation UIViewController (KeyboardCorver)
 
+@dynamic keyboardHideTapGesture;
+@dynamic objectView;
+
 #pragma mark - 设置键盘隐藏单击手势 setter getter
 - (void)setKeyboardHideTapGesture:(UITapGestureRecognizer *)keyboardHideTapGesture{
     objc_setAssociatedObject(self, keyboardHideTapGestureKey, keyboardHideTapGesture, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (id)getKeyboardHideTapGesture{
+- (id)keyboardHideTapGesture{
     return objc_getAssociatedObject(self, keyboardHideTapGestureKey);
 }
 
@@ -28,7 +31,7 @@ static void * objectViewKey = (void *)@"objectView";//目标视图
     objc_setAssociatedObject(self, objectViewKey, objectView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (id)getObjectView{
+- (id)objectView{
     return objc_getAssociatedObject(self, objectViewKey);
 }
 
@@ -38,13 +41,13 @@ static void * objectViewKey = (void *)@"objectView";//目标视图
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardNotify:) name:UIKeyboardWillHideNotification object:nil];
     
     [self setKeyboardHideTapGesture:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureHandel)]];
-    [self.view addGestureRecognizer:[self getKeyboardHideTapGesture]];
+    [self.view addGestureRecognizer:self.keyboardHideTapGesture];
 }
 
 #pragma mark - 清理通知和移除手势
 - (void)clearNotificationAndGesture{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.view removeGestureRecognizer:[self getKeyboardHideTapGesture]];
+    [self.view removeGestureRecognizer:self.keyboardHideTapGesture];
 }
 
 #pragma mark - 单击手势调用
@@ -54,7 +57,7 @@ static void * objectViewKey = (void *)@"objectView";//目标视图
 
 #pragma mark - 查找第一响应者
 - (void)findFirstResponse:(UIView *)view{
-    UIView * ojView = [self getObjectView];
+    UIView * ojView = self.objectView;
     ojView = nil;
     for (UIView * tempView in view.subviews) {
         if ([tempView isFirstResponder] &&
@@ -80,7 +83,7 @@ static void * objectViewKey = (void *)@"objectView";//目标视图
     
     if ([notify.name isEqualToString:UIKeyboardWillShowNotification]) {//键盘显示
         [self findFirstResponse:self.view];
-        UIView * tempView = [self getObjectView];
+        UIView * tempView = self.objectView;
         CGPoint point = [tempView convertPoint:CGPointMake(0, 0) toView:[UIApplication sharedApplication].keyWindow];//计算响应者到和屏幕的绝对位置
         CGFloat keyboardY = APPWINDOWHEIGHT - keyboardHeight;
         CGFloat tempHeight = point.y + tempView.frame.size.height;

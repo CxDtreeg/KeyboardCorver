@@ -32,6 +32,7 @@
     [_scrollView addSubview:textField];
     
     [self addNotification];
+
 }
 
 - (void)dealloc

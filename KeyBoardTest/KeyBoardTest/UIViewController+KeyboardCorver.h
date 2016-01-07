@@ -14,6 +14,9 @@
 
 @interface UIViewController (KeyboardCorver)
 
+@property (strong, nonatomic) UITapGestureRecognizer * keyboardHideTapGesture;//键盘点击隐藏手势
+@property (strong, nonatomic) UIView * objectView;//目标视图
+
 #pragma mark - 添加键盘通知
 - (void)addNotification;
 
