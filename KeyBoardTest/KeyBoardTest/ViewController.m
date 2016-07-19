@@ -27,12 +27,26 @@
     _scrollView.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:_scrollView];
     
-    UITextField * textField = [[UITextField alloc] initWithFrame:CGRectMake(8,600 , APPWINDOWWIDTH-16, 40)];
-    textField.backgroundColor = [UIColor grayColor];
-    [_scrollView addSubview:textField];
+//    UITextField * textField = [[UITextField alloc] initWithFrame:CGRectMake(8,600 , APPWINDOWWIDTH-16, 40)];
+//    textField.backgroundColor = [UIColor grayColor];
+//    [_scrollView addSubview:textField];
+    UITextView * textView = [[UITextView alloc] initWithFrame:CGRectMake(8, 600, APPWINDOWWIDTH-16, 100) textContainer:nil];
+    textView.backgroundColor = [UIColor grayColor];
+    [_scrollView addSubview:textView];
+    
     
     [self addNotification];
+    
+#pragma mark - 测试按钮点击事件
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    button.backgroundColor = [UIColor redColor];
+    button.frame = CGRectMake(0, 200, 300, 40);
+    [button addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button];
+}
 
+- (void)buttonPressed{
+    NSLog(@"点击");
 }
 
 - (void)dealloc

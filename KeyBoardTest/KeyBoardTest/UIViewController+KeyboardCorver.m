@@ -84,7 +84,8 @@ static void * objectViewKey = (void *)@"objectView";//目标视图
     if ([notify.name isEqualToString:UIKeyboardWillShowNotification]) {//键盘显示
         [self findFirstResponse:self.view];
         UIView * tempView = self.objectView;
-        CGPoint point = [tempView convertPoint:CGPointMake(0, 0) toView:[UIApplication sharedApplication].keyWindow];//计算响应者到和屏幕的绝对位置
+        CGRect rect = [tempView.superview convertRect:tempView.frame fromView:self.view];//计算响应者到和屏幕的绝对位置
+        CGPoint point = rect.origin;
         CGFloat keyboardY = APPWINDOWHEIGHT - keyboardHeight;
         CGFloat tempHeight = point.y + tempView.frame.size.height;
         if (tempHeight > keyboardY) {
