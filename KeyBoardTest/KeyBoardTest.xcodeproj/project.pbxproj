@@ -13,7 +13,7 @@
 		4D8834D71BE3202300447B74 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D8834D51BE3202300447B74 /* Main.storyboard */; };
 		4D8834D91BE3202300447B74 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8834D81BE3202300447B74 /* Assets.xcassets */; };
 		4D8834DC1BE3202300447B74 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D8834DA1BE3202300447B74 /* LaunchScreen.storyboard */; };
-		4D8834E81BE3212D00447B74 /* UIViewController+KeyboardCorver.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8834E71BE3212D00447B74 /* UIViewController+KeyboardCorver.m */; settings = {ASSET_TAGS = (); }; };
+		4D8834E81BE3212D00447B74 /* UIViewController+KeyboardCorver.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8834E71BE3212D00447B74 /* UIViewController+KeyboardCorver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -115,6 +115,7 @@
 				TargetAttributes = {
 					4D8834C81BE3202300447B74 = {
 						CreatedOnToolsVersion = 7.0.1;
+						DevelopmentTeam = G3T9TULVG3;
 					};
 				};
 			};
@@ -267,10 +268,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = KeyBoardTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CxDtreeg.KeyBoardTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -278,10 +282,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = KeyBoardTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = CxDtreeg.KeyBoardTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -304,6 +311,7 @@
 				4D8834E21BE3202300447B74 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
